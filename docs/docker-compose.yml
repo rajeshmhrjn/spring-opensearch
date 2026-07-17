@@ -1,0 +1,27 @@
+services:
+  opensearch:
+    image: opensearchproject/opensearch:2.13.0
+    container_name: opensearch
+    environment:
+      - discovery.type=single-node          # Single-node (no cluster needed for local dev)
+      - DISABLE_SECURITY_PLUGIN=true        # Disables HTTPS & auth — much simpler for local dev
+      - OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m   # Limit heap to 512MB (plenty for learning)
+    ports:
+      - "9200:9200"   # REST API
+      - "9600:9600"   # Performance Analyzer
+    volumes:
+      - opensearch-data:/usr/share/opensearch/data
+
+  opensearch-dashboards:
+    image: opensearchproject/opensearch-dashboards:2.13.0
+    container_name: opensearch-dashboards
+    ports:
+      - "5601:5601"   # Web UI
+    environment:
+      - OPENSEARCH_HOSTS=http://opensearch:9200
+      - DISABLE_SECURITY_DASHBOARDS_PLUGIN=true
+    depends_on:
+      - opensearch
+
+volumes:
+  opensearch-data:

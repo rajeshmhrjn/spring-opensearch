@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: SpringOpenSearch
+
+opensearch:
+  host: localhost
+  port: 9200
+  scheme: http   # plain HTTP since security is disabled

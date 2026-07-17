@@ -1,0 +1,640 @@
+{
+  "info": {
+    "_postman_id": "abe228e3-822d-4ce6-92c2-0267ff77c5b4",
+    "name": "SpringOpenSearch",
+    "description": "All API endpoints for the SpringOpenSearch learner project (products, shipments, search, aggregations, geo).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "productId",
+      "value": "1",
+      "type": "string"
+    },
+    {
+      "key": "shipmentId",
+      "value": "1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Init Products Index",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/init",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "init"]
+            }
+          }
+        },
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{productId}}\",\n  \"name\": \"Wireless Mouse\",\n  \"category\": \"Electronics\",\n  \"price\": 25.99\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products"]
+            }
+          }
+        },
+        {
+          "name": "Get Product by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/{{productId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "{{productId}}"]
+            }
+          }
+        },
+        {
+          "name": "Patch Product",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"price\": 19.99\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/products/{{productId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "{{productId}}"]
+            }
+          }
+        },
+        {
+          "name": "Search Products by Name",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/search?name=mouse",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "search"],
+              "query": [
+                { "key": "name", "value": "mouse" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/{{productId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "products", "{{productId}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Shipments",
+      "item": [
+        {
+          "name": "Init Shipments Index",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/init",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "init"]
+            }
+          }
+        },
+        {
+          "name": "Create Shipment",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id\": \"{{shipmentId}}\",\n  \"tracking_number\": \"TRK123456\",\n  \"reference_number\": \"REF-001\",\n  \"status\": \"IN_TRANSIT\",\n  \"carrier\": \"FedEx\",\n  \"service\": \"Express\",\n  \"priority\": \"HIGH\",\n  \"origin_address\": {\n    \"street\": \"123 5th Ave\",\n    \"city\": \"New York\",\n    \"state\": \"NY\",\n    \"postal_code\": \"10001\",\n    \"country\": \"US\",\n    \"location\": { \"lat\": 40.7128, \"lon\": -74.006 }\n  },\n  \"destination_address\": {\n    \"street\": \"456 Sunset Blvd\",\n    \"city\": \"Los Angeles\",\n    \"state\": \"CA\",\n    \"postal_code\": \"90028\",\n    \"country\": \"US\",\n    \"location\": { \"lat\": 34.0522, \"lon\": -118.2437 }\n  },\n  \"current_location\": { \"lat\": 39.0997, \"lon\": -94.5786 },\n  \"created_at\": \"2026-07-01T10:00:00Z\",\n  \"updated_at\": \"2026-07-02T08:30:00Z\",\n  \"estimated_delivery\": \"2026-07-05T18:00:00Z\",\n  \"actual_delivery\": null,\n  \"weight_kg\": 2.5,\n  \"volume_cbm\": 0.02,\n  \"package_count\": 1,\n  \"declared_value\": 150.0,\n  \"currency\": \"USD\",\n  \"sender_name\": \"Alice Smith\",\n  \"sender_id\": \"S-100\",\n  \"recipient_name\": \"Bob Jones\",\n  \"recipient_id\": \"R-200\",\n  \"tags\": [\"fragile\", \"priority\"],\n  \"notes\": \"Leave at front desk\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments"]
+            }
+          }
+        },
+        {
+          "name": "Get Shipment by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/{{shipmentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "{{shipmentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Get All Shipments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments"]
+            }
+          }
+        },
+        {
+          "name": "Update Shipment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tracking_number\": \"TRK123456\",\n  \"status\": \"DELIVERED\",\n  \"carrier\": \"FedEx\",\n  \"weight_kg\": 2.5\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/{{shipmentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "{{shipmentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Delete Shipment",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/{{shipmentId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "{{shipmentId}}"]
+            }
+          }
+        },
+        {
+          "name": "Bulk Create Shipments",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"tracking_number\": \"TRK000001\",\n    \"status\": \"PENDING\",\n    \"carrier\": \"UPS\",\n    \"weight_kg\": 1.2\n  },\n  {\n    \"tracking_number\": \"TRK000002\",\n    \"status\": \"IN_TRANSIT\",\n    \"carrier\": \"DHL\",\n    \"weight_kg\": 3.4\n  }\n]",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/bulk",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "bulk"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Shipment Search",
+      "item": [
+        {
+          "name": "Match",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/search/match?field=carrier&text=FedEx",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "search", "match"],
+              "query": [
+                { "key": "field", "value": "carrier" },
+                { "key": "text", "value": "FedEx" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Match Phrase",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/search/match-phrase?field=notes&phrase=Leave at front desk",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "search", "match-phrase"],
+              "query": [
+                { "key": "field", "value": "notes" },
+                { "key": "phrase", "value": "Leave at front desk" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Match Phrase Slop",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/search/match-phrase-slop?field=notes&phrase=front desk leave&slop=2",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "search", "match-phrase-slop"],
+              "query": [
+                { "key": "field", "value": "notes" },
+                { "key": "phrase", "value": "front desk leave" },
+                { "key": "slop", "value": "2" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Term",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/search/term?field=status&value=IN_TRANSIT",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "search", "term"],
+              "query": [
+                { "key": "field", "value": "status" },
+                { "key": "value", "value": "IN_TRANSIT" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Terms",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/search/terms?field=status&values=IN_TRANSIT&values=DELIVERED",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "search", "terms"],
+              "query": [
+                { "key": "field", "value": "status" },
+                { "key": "values", "value": "IN_TRANSIT" },
+                { "key": "values", "value": "DELIVERED" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Range",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/search/range?field=weight_kg&gte=1&lte=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "search", "range"],
+              "query": [
+                { "key": "field", "value": "weight_kg" },
+                { "key": "gte", "value": "1" },
+                { "key": "lte", "value": "5" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Match All",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/search/match-all",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "search", "match-all"]
+            }
+          }
+        },
+        {
+          "name": "Multi Match",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/search/multi-match?text=FedEx&fields=carrier&fields=notes",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "search", "multi-match"],
+              "query": [
+                { "key": "text", "value": "FedEx" },
+                { "key": "fields", "value": "carrier" },
+                { "key": "fields", "value": "notes" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Bool",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/search/bool?status=IN_TRANSIT&carrier=FedEx&notes=fragile",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "search", "bool"],
+              "query": [
+                { "key": "status", "value": "IN_TRANSIT" },
+                { "key": "carrier", "value": "FedEx" },
+                { "key": "notes", "value": "fragile" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Prefix",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/search/prefix?field=tracking_number&prefix=TRK1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "search", "prefix"],
+              "query": [
+                { "key": "field", "value": "tracking_number" },
+                { "key": "prefix", "value": "TRK1" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Wildcard",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/search/wildcard?field=tracking_number&pattern=TRK*56",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "search", "wildcard"],
+              "query": [
+                { "key": "field", "value": "tracking_number" },
+                { "key": "pattern", "value": "TRK*56" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Exists",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/search/exists?field=actual_delivery",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "search", "exists"],
+              "query": [
+                { "key": "field", "value": "actual_delivery" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Fuzzy",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/search/fuzzy?field=carrier&value=Fedex",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "search", "fuzzy"],
+              "query": [
+                { "key": "field", "value": "carrier" },
+                { "key": "value", "value": "Fedex" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Shipment Aggregations",
+      "item": [
+        {
+          "name": "Count By Field",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/aggregations/count-by?field=carrier",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "aggregations", "count-by"],
+              "query": [
+                { "key": "field", "value": "carrier" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Value Count",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/aggregations/value-count?field=actual_delivery",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "aggregations", "value-count"],
+              "query": [
+                { "key": "field", "value": "actual_delivery" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/aggregations/stats?field=weight_kg",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "aggregations", "stats"],
+              "query": [
+                { "key": "field", "value": "weight_kg" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Metrics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/aggregations/metrics?field=declared_value",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "aggregations", "metrics"],
+              "query": [
+                { "key": "field", "value": "declared_value" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Range Aggregation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/aggregations/range",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "aggregations", "range"]
+            }
+          }
+        },
+        {
+          "name": "Date Histogram",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/aggregations/date-histogram?interval=Day",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "aggregations", "date-histogram"],
+              "query": [
+                { "key": "interval", "value": "Day" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Avg Value By Carrier",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/aggregations/avg-value-by-carrier",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "aggregations", "avg-value-by-carrier"]
+            }
+          }
+        },
+        {
+          "name": "Filtered Aggregation",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/aggregations/filtered?status=IN_TRANSIT",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "aggregations", "filtered"],
+              "query": [
+                { "key": "status", "value": "IN_TRANSIT" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Shipment Geo",
+      "item": [
+        {
+          "name": "Within Distance",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/geo/distance?field=current_location&lat=40.7128&lon=-74.006&distanceKm=100",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "geo", "distance"],
+              "query": [
+                { "key": "field", "value": "current_location" },
+                { "key": "lat", "value": "40.7128" },
+                { "key": "lon", "value": "-74.006" },
+                { "key": "distanceKm", "value": "100" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Within Bounding Box",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/geo/bounding-box?field=current_location&topLeftLat=41&topLeftLon=-75&bottomRightLat=39&bottomRightLon=-73",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "geo", "bounding-box"],
+              "query": [
+                { "key": "field", "value": "current_location" },
+                { "key": "topLeftLat", "value": "41" },
+                { "key": "topLeftLon", "value": "-75" },
+                { "key": "bottomRightLat", "value": "39" },
+                { "key": "bottomRightLon", "value": "-73" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Sorted By Distance",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/geo/sorted-by-distance?field=current_location&lat=40.7128&lon=-74.006&status=IN_TRANSIT",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "geo", "sorted-by-distance"],
+              "query": [
+                { "key": "field", "value": "current_location" },
+                { "key": "lat", "value": "40.7128" },
+                { "key": "lon", "value": "-74.006" },
+                { "key": "status", "value": "IN_TRANSIT" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Distance Rings",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/shipments/geo/distance-rings?field=current_location&lat=40.7128&lon=-74.006",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "shipments", "geo", "distance-rings"],
+              "query": [
+                { "key": "field", "value": "current_location" },
+                { "key": "lat", "value": "40.7128" },
+                { "key": "lon", "value": "-74.006" }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
